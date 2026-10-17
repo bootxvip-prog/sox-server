@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>SO X | الإدارة</title>
+<style>body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#16171a;color:#f2f2f2;padding:16px;line-height:1.8}h1,h2{color:#f7e08a}input,button{font:inherit;padding:8px 12px;border-radius:10px;border:1px solid #8a6410;background:#2a2c30;color:#f2f2f2}button{background:#d4a017;color:#1b1400;font-weight:700;cursor:pointer}.row{border-top:1px solid #3a3d43;padding:8px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row img{width:50px;height:50px;object-fit:cover;border-radius:8px}.row span{flex:1;word-break:break-word}</style></head>
+<body><h1>لوحة إدارة SO X</h1>
+<div><input id="k" type="password" placeholder="مفتاح الإدارة"> <button id="go">دخول</button> <span id="m"></span></div>
+<div id="out" style="display:none"><h2 id="u"></h2><h2>الكروت</h2><div id="cards"></div><h2>التعليقات</h2><div id="cm"></div><h2>المحظورون</h2><div id="bans"></div></div>
+<script>
+(function(){"use strict";
+var $=function(i){return document.getElementById(i)};
+function call(p,d){var o={method:d?"POST":"GET",headers:{"X-Admin-Key":$("k").value}};if(d){o.body=JSON.stringify(d)}
+return fetch(p,o).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||"خطأ");return j})})}
+function row(box,text,img,label,fn){var d=document.createElement("div");d.className="row";
+if(img){var i=document.createElement("img");i.src=img;i.alt="";d.append(i)}
+var s=document.createElement("span");s.textContent=text;var b=document.createElement("button");b.textContent=label;b.onclick=fn;d.append(s,b);box.append(d)}
+function load(){call("/api/admin/overview").then(function(o){
+$("out").style.display="block";$("m").textContent="";$("u").textContent="عدد العمال: "+o.users;
+["cards","cm","bans"].forEach(function(x){$(x).textContent=""});
+o.cards.forEach(function(c){row($("cards"),c.name+" - "+c.price,c.img,"حذف",function(){call("/api/admin/delete-card",{id:c.id}).then(load)})});
+o.comments.forEach(function(c){row($("cm"),c.name+": "+c.text+(c.hidden?" (مخفي)":""),null,"حذف",function(){call("/api/admin/delete-comment",{id:c.id}).then(load)})});
+o.bans.forEach(function(b){row($("bans"),b.ip+" - "+b.reason,null,"رفع الحظر",function(){call("/api/admin/unban",{ip:b.ip}).then(load)})})
+}).catch(function(e){$("m").textContent=e.message})}
+$("go").onclick=load})();
+</script></body></html>

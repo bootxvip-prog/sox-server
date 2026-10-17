@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SO X | منصة العمل وبيع الكروت</title>
+<meta name="description" content="SO X منصة عربية للعمل عن بُعد: صوّر الكروت وانشرها للبيع عبر الإنترنت.">
+<meta name="robots" content="index,follow">
+<style>
+:root{--gold1:#f7e08a;--gold2:#d4a017;--gold3:#8a6410;--g1:#2a2c30;--g2:#3a3d43;--g3:#a9adb5;--bg:#16171a;--tx:#f2f2f2;--sh:1;--fs:16px;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;font-size:var(--fs);background:radial-gradient(circle at 20% 0,#2b2d33,var(--bg) 60%);color:var(--tx);line-height:1.8;min-height:100vh}
+body.light{--bg:#e9eaed;--tx:#1b1c1f;--g1:#d9dbe0;--g2:#c5c8ce;background:radial-gradient(circle at 20% 0,#fff,var(--bg) 70%)}
+.gold{background:linear-gradient(110deg,var(--gold3),var(--gold1) 30%,var(--gold2) 50%,var(--gold1) 70%,var(--gold3));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine calc(4s/var(--sh)) linear infinite}
+body.noshine .gold,body.noshine .btn::after{animation:none}
+@keyframes shine{to{background-position:-250% 0}}
+.wrap{max-width:1000px;margin:auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(22,23,26,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--gold3)}
+body.light header{background:rgba(233,234,237,.9)}
+.logo{font-size:2rem;font-weight:900;letter-spacing:3px}
+.hero{text-align:center;padding:48px 8px}
+.hero h1{font-size:clamp(3.2rem,16vw,6rem);margin:0;font-weight:900;letter-spacing:6px}
+.hero p{color:var(--g3);max-width:560px;margin:8px auto 20px}
+.card{background:linear-gradient(145deg,var(--g2),var(--g1));border:1px solid var(--gold3);border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 6px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(247,224,138,.25)}
+h2{margin:0 0 10px;font-size:1.4rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.step{text-align:center}.step b{display:block;font-size:2rem}
+.btn{position:relative;overflow:hidden;border:0;cursor:pointer;font:inherit;font-weight:700;padding:10px 22px;border-radius:30px;color:#1b1400;background:linear-gradient(110deg,var(--gold2),var(--gold1),var(--gold2));box-shadow:0 3px 12px rgba(212,160,23,.4)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-100%);animation:sweep calc(3s/var(--sh)) infinite}
+@keyframes sweep{to{transform:translateX(100%)}}
+.btn.alt{background:var(--g2);color:var(--gold1);border:1px solid var(--gold3)}
+input,textarea,select{width:100%;padding:10px 12px;margin:5px 0;border-radius:10px;border:1px solid var(--gold3);background:var(--g1);color:var(--tx);font:inherit}
+label{color:var(--gold1);font-size:.9rem}
+.cardsrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.item{border:1px solid var(--gold3);border-radius:12px;padding:10px;text-align:center;background:var(--g1)}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{flex:1;min-width:130px;text-align:center}.stat b{font-size:1.8rem;display:block}
+.cm{border-top:1px solid var(--g2);padding:8px 0;word-break:break-word}.cm small{color:var(--g3)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#toast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 70px);left:12px;right:12px;max-width:380px;margin:auto;z-index:50;display:none;padding:12px 16px;border-radius:14px;color:#1b1400;font-weight:700;background:linear-gradient(110deg,var(--gold2),var(--gold1));box-shadow:0 8px 30px rgba(0,0,0,.5)}
+#set{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:40;align-items:center;justify-content:center;padding:16px}
+#set .card{width:100%;max-width:380px;background:var(--g1)}
+.thanks{text-align:center;padding:26px 0;font-size:1.3rem;font-weight:700}
+footer{text-align:center;color:var(--g3);padding:20px 0 30px;font-size:.85rem}
+.msg{color:var(--gold1);min-height:1.4em}
+</style>
+</head>
+<body>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<header>
+  <div class="logo gold">SO X</div>
+  <button class="btn alt" id="openSet">⚙ الإعدادات</button>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <h1 class="gold">SO X</h1>
+    <p>منصة عربية للعمل عن بُعد. سجّل كعامل، صوّر الكروت، وانشرها للبيع على الإنترنت بخطوات واضحة وسهلة.</p>
+    <a href="#join"><button class="btn">ابدأ العمل الآن</button></a>
+  </section>
+
+  <section class="card">
+    <h2 class="gold">كيف يعمل الموقع؟</h2>
+    <div class="grid">
+      <div class="step"><b>1</b>سجّل حسابك كعامل</div>
+      <div class="step"><b>2</b>صوّر الكروت بوضوح</div>
+      <div class="step"><b>3</b>أضف السعر والوصف</div>
+      <div class="step"><b>4</b>تُعرض للبيع في المعرض</div>
+    </div>
+  </section>
+
+  <section class="card" id="join">
+    <h2 class="gold">حساب العامل</h2>
+    <div id="authBox">
+      <label for="wn">الاسم (للتسجيل فقط)</label><input id="wn" maxlength="40" autocomplete="name">
+      <label for="we">البريد الإلكتروني</label><input id="we" type="email" maxlength="80" autocomplete="email">
+      <label for="wp">كلمة المرور (8 أحرف على الأقل)</label><input id="wp" type="password" maxlength="100" autocomplete="current-password">
+      <div class="bar" style="margin-top:8px"><button class="btn" id="wreg">تسجيل جديد</button><button class="btn alt" id="wlog">دخول</button></div>
+    </div>
+    <div id="userBox" style="display:none"><b id="uname"></b> <button class="btn alt" id="wout" style="margin-right:8px">خروج</button></div>
+    <div class="msg" id="wmsg"></div>
+  </section>
+
+  <section class="card">
+    <h2 class="gold">إضافة كارت للبيع</h2>
+    <label for="cn">اسم الكارت</label><input id="cn" maxlength="50">
+    <label for="cp">السعر بالجنيه</label><input id="cp" type="number" min="1" max="1000000" inputmode="decimal">
+    <label for="cf">صورة الكارت</label><input id="cf" type="file" accept="image/png,image/jpeg,image/webp">
+    <button class="btn" id="cadd" style="margin-top:8px">نشر الكارت</button>
+    <div class="msg" id="cmsg"></div>
+  </section>
+
+  <section class="card">
+    <h2 class="gold">معرض الكروت</h2>
+    <div class="cardsrow" id="gallery"></div>
+  </section>
+
+  <section class="card">
+    <h2 class="gold">الإحصائيات</h2>
+    <div class="stats">
+      <div class="stat card"><b class="gold" id="vNow">1</b>متصلون الآن</div>
+      <div class="stat card"><b class="gold" id="vDay">1</b>زيارات آخر 24 ساعة</div>
+      <div class="stat card"><b class="gold" id="vLikes">0</b>الإعجابات</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="gold">التفاعل والتعليقات</h2>
+    <div class="bar">
+      <button class="btn" id="like">♥ إعجاب</button>
+      <button class="btn alt" id="share">↗ مشاركة</button>
+    </div>
+    <label for="cmn" style="margin-top:10px;display:block">الاسم</label><input id="cmn" maxlength="30">
+    <label for="cmt">التعليق</label><textarea id="cmt" rows="3" maxlength="300"></textarea>
+    <button class="btn" id="cmsend" style="margin-top:8px">إرسال التعليق</button>
+    <div class="msg" id="cmm"></div>
+    <div id="cmlist"></div>
+  </section>
+
+  <div class="thanks gold">شكراً لتواصلك معنا</div>
+  <footer>© SO X — جميع الحقوق محفوظة</footer>
+</div>
+
+<div id="set" role="dialog" aria-modal="true">
+  <div class="card">
+    <h2 class="gold">الإعدادات</h2>
+    <label for="sTheme">المظهر</label>
+    <select id="sTheme"><option value="dark">داكن</option><option value="light">فاتح</option></select>
+    <label for="sShine">قوة اللمعان</label>
+    <input id="sShine" type="range" min="0.5" max="3" step="0.5" value="1">
+    <label><input id="sOn" type="checkbox" checked style="width:auto"> تفعيل اللمعان</label><br>
+    <label><input id="sNot" type="checkbox" checked style="width:auto"> تفعيل الإشعارات</label>
+    <label for="sFs">حجم الخط</label>
+    <input id="sFs" type="range" min="14" max="22" step="1" value="16">
+    <button class="btn" id="closeSet" style="margin-top:10px">حفظ وإغلاق</button>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i)};
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function api(path,method,data,auth){
+  var o={method:method||"GET",headers:{}};
+  if(data){o.body=JSON.stringify(data);o.headers["Content-Type"]="application/json"}
+  var t=ld("sx_token",null);if(t&&auth!==false)o.headers.Authorization="Bearer "+t;
+  return fetch(path,o).then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok)throw new Error(j.error||"حدث خطأ، حاول مرة أخرى");return j})})
+}
+function say(id,t){$(id).textContent=t}
+function fail(id){return function(e){say(id,e.message==="Failed to fetch"?"لا يوجد اتصال بالخادم.":e.message)}}
+
+/* الإعدادات */
+var st=ld("sx_set",{theme:"dark",sh:1,on:true,not:true,fs:16});
+function apply(){
+  document.body.classList.toggle("light",st.theme==="light");
+  document.body.classList.toggle("noshine",!st.on);
+  document.documentElement.style.setProperty("--sh",st.sh);
+  document.documentElement.style.setProperty("--fs",st.fs+"px");
+  $("sTheme").value=st.theme;$("sShine").value=st.sh;$("sOn").checked=st.on;$("sNot").checked=st.not;$("sFs").value=st.fs;
+}
+apply();
+$("openSet").onclick=function(){$("set").style.display="flex"};
+$("closeSet").onclick=function(){
+  st={theme:$("sTheme").value,sh:+$("sShine").value,on:$("sOn").checked,not:$("sNot").checked,fs:+$("sFs").value};
+  sv("sx_set",st);apply();$("set").style.display="none"
+};
+
+/* إشعارات 10 ثوان */
+function toast(t){
+  if(!st.not)return;var el=$("toast");el.textContent=t;el.style.display="block";
+  clearTimeout(toast.h);toast.h=setTimeout(function(){el.style.display="none"},10000)
+}
+
+/* البث المباشر: المتصلون الآن + إشعار زائر جديد */
+var first=true;
+function live(){
+  if(!window.EventSource)return;
+  var es=new EventSource("/api/live");
+  es.addEventListener("viewers",function(e){try{$("vNow").textContent=JSON.parse(e.data).now}catch(x){}});
+  es.addEventListener("visit",function(){if(first){first=false;return}toast("دخل زائر جديد إلى الموقع")});
+}
+live();
+toast("أهلاً بك في SO X");
+
+/* الإحصائيات */
+function stats(){api("/api/stats","GET",null,false).then(function(s){$("vNow").textContent=s.now;$("vDay").textContent=s.day;$("vLikes").textContent=s.likes}).catch(function(){})}
+stats();setInterval(stats,20000);
+
+/* الإعجاب والمشاركة */
+$("like").onclick=function(){
+  api("/api/like","POST",{},false).then(function(r){$("vLikes").textContent=r.likes;$("like").textContent=r.liked?"♥ أعجبني":"♥ إعجاب"}).catch(function(){})
+};
+$("share").onclick=function(){
+  var d={title:"SO X",text:"منصة SO X للعمل وبيع الكروت",url:location.href};
+  if(navigator.share){navigator.share(d).catch(function(){})}
+  else if(navigator.clipboard){navigator.clipboard.writeText(location.href).then(function(){toast("تم نسخ رابط الموقع")})}
+};
+
+/* التعليقات */
+function drawC(list){
+  var box=$("cmlist");box.textContent="";
+  list.forEach(function(c){
+    var d=document.createElement("div");d.className="cm";
+    var b=document.createElement("b");b.textContent=c.name;
+    var s=document.createElement("small");s.textContent=" — "+new Date(c.created).toLocaleString("ar-EG")+" ";
+    var rp=document.createElement("button");rp.className="btn alt";rp.style.cssText="padding:0 10px;font-size:.75rem";rp.textContent="إبلاغ";
+    rp.onclick=function(){api("/api/report","POST",{id:c.id},false).then(function(){rp.textContent="تم الإبلاغ";rp.disabled=true}).catch(function(){})};
+    var p=document.createElement("div");p.textContent=c.text;
+    d.append(b,s,rp,p);box.append(d)
+  })
+}
+function loadC(){api("/api/comments","GET",null,false).then(drawC).catch(function(){})}
+loadC();setInterval(loadC,30000);
+$("cmsend").onclick=function(){
+  say("cmm","");
+  api("/api/comments","POST",{name:$("cmn").value,text:$("cmt").value},false)
+    .then(function(){$("cmt").value="";say("cmm","تم نشر تعليقك.");loadC()}).catch(fail("cmm"))
+};
+
+/* الحساب */
+function showUser(){
+  var u=ld("sx_user",null),t=ld("sx_token",null);
+  $("authBox").style.display=t?"none":"block";$("userBox").style.display=t?"block":"none";
+  if(t&&u)$("uname").textContent="مرحباً "+u;
+}
+showUser();
+$("wreg").onclick=function(){
+  say("wmsg","");
+  api("/api/register","POST",{name:$("wn").value,email:$("we").value,password:$("wp").value},false)
+    .then(function(){say("wmsg","تم إنشاء الحساب. اضغط دخول.")}).catch(fail("wmsg"))
+};
+$("wlog").onclick=function(){
+  say("wmsg","");
+  api("/api/login","POST",{email:$("we").value,password:$("wp").value},false)
+    .then(function(r){sv("sx_token",r.token);sv("sx_user",r.name);$("wp").value="";say("wmsg","تم تسجيل الدخول.");showUser()}).catch(fail("wmsg"))
+};
+$("wout").onclick=function(){try{localStorage.removeItem("sx_token");localStorage.removeItem("sx_user")}catch(e){}showUser()};
+
+/* الكروت */
+function drawG(list){
+  var g=$("gallery");g.textContent="";
+  if(!list.length){var e=document.createElement("div");e.textContent="لا توجد كروت بعد. كن أول من يضيف كارتاً.";e.style.color="var(--g3)";g.append(e);return}
+  list.forEach(function(c){
+    var d=document.createElement("div");d.className="item";
+    var im=document.createElement("img");im.src=c.img;im.alt=c.name;im.loading="lazy";im.style.cssText="width:100%;height:110px;object-fit:cover;border-radius:8px";
+    var t=document.createElement("b");t.textContent=c.name;
+    var p=document.createElement("div");p.className="gold";p.textContent=c.price+" جنيه";
+    var w=document.createElement("small");w.style.color="var(--g3)";w.textContent="بواسطة "+c.worker;
+    d.append(im,t,p,document.createElement("br"),w);g.append(d)
+  })
+}
+function loadG(){api("/api/cards","GET",null,false).then(drawG).catch(function(){})}
+loadG();setInterval(loadG,45000);
+$("cadd").onclick=function(){
+  var f=$("cf").files[0];say("cmsg","");
+  if(!ld("sx_token",null)){say("cmsg","سجّل الدخول أولاً.");return}
+  if(!f||!/^image\/(png|jpeg|webp)$/.test(f.type)||f.size>1.5e6){say("cmsg","اختر صورة PNG أو JPG أو WEBP أقل من 1.5 ميجا.");return}
+  var r=new FileReader();
+  r.onload=function(){
+    api("/api/cards","POST",{name:$("cn").value,price:$("cp").value,image:r.result})
+      .then(function(){say("cmsg","تم نشر الكارت.");$("cn").value="";$("cp").value="";$("cf").value="";loadG()}).catch(fail("cmsg"))
+  };
+  r.onerror=function(){say("cmsg","تعذر قراءة الصورة.")};
+  r.readAsDataURL(f)
+};
+})();
+</script>
+</body>
+</html>
