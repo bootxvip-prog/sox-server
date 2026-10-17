@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: sox
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/stats
+    envVars:
+      - key: ADMIN_KEY
+        generateValue: true
+    disk:
+      name: sox-data
+      mountPath: /data
+      sizeGB: 1
